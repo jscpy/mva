@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Sessiones del día</h1>  
+{% for sesion in sesiones  %}
+<div class="row">
+	<div class="col-md-4">
+		<a href="{% url 'session_detail' sesion.pk %}">
+			<p class="lead">{{sesion.title}}</p>
+        </a>
+	</div>
+	<div class="col-md-4">
+		<a href="{% url 'session_update' sesion.pk %}"> Update </a>
+	</div>
+	<div class="col-md-4">
+        <a href="{% url 'session_delete' sesion.pk %}"> Delete</a>
+    </div>
+</div>
+{% endfor %}	
+	
+{% endblock %}

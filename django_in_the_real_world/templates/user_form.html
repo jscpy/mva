@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<br><br>
+<form method="post" accept-charset="utf-8">
+	{% csrf_token %}
+	{% crispy form %}
+</form>
+{% endblock %}
