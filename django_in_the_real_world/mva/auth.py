@@ -1,4 +1,4 @@
-from django.contrib.auth import login, logout, authenticate
+from django.contrib import auth
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
@@ -12,11 +12,11 @@ class UserCreateView(CreateView):
     form_class = UserForm
     succes_url = ('session_list')
 
-def userlogout(request):
-	logout(request)
+def logout(request):
+	auth.logout(request)
 	return redirect('/')
 
-def userlogin(request):
+def login(request):
 	if request.method == 'GET':
 		return render(request, 'login.html')
 	
@@ -24,11 +24,11 @@ def userlogin(request):
 		username = request.POST['username']
 		password = request.POST['password']
 
-		user = authenticate(username = username, password = password)
+		user = auth.authenticate(username = username, password = password)
 
 		if user is not None:
 			if user.is_active:
-				login(request, user)
+				auth.login(request, user)
 				next = ''
 				if 'next' in request.GET:
 					next = request.GET['next']

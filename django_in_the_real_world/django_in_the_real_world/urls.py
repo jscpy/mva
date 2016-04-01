@@ -18,12 +18,12 @@ urlpatterns = [
     ),
     url(
         regex = r'^login/', 
-        view = auth.userlogin,
+        view = auth.login,
         name = 'login'
     ),
     url(
         regex = r'^logout/', 
-        view = auth.userlogout,
+        view = auth.logout,
         name = 'logout'
     ),
     url(
