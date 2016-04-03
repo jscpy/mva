@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-
+from django.contrib.auth.forms import UserCreationForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Field
 
@@ -18,17 +18,14 @@ class SessionForm(forms.ModelForm):
 		self.helper.field_classs = 'col-md-4'
 		self.helper.add_input(Submit('submit','Save'))
 
-class UserForm(forms.ModelForm):
-	password = forms.CharField(widget=forms.PasswordInput)
-
+class UserForm(UserCreationForm):
 	class Meta:
 		model = User
-		fields = ['username','password',]
+		fields = ['username','password1',]
 
 	def __init__(self, *args, **kwargs):
 		super(UserForm, self).__init__(*args, **kwargs)
 		self.helper = FormHelper(self)
-		self.helper.form_class = 'form-inline'
+		self.helper.form_class = 'form-horizontal'
 		self.helper.field_classs = 'col-md-4'
 		self.helper.add_input(Submit('submit','Enviar'))
-	
