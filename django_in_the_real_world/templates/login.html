@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
 {% block content %}
 <br><br>
 {% if user.is_authenticated %}
-	<h1>Ya te haz logueado</h1>
+	<h1>Ya te has logueado</h1>
 {% else %}
 	{% if mensaje %}
 		<div class="alert alert-danger" role="alert" role="alert">
@@ -14,13 +16,9 @@
 	{% endif %}
 	<div class="row">
 	<div class="col-md-offset-4 col-md-4">
-	<form class="form-signin" method="POST">
-	{% csrf_token %}
-	        <h2 class="form-signin-heading">Please sign in</h2>
-	        <input type="text" id="inputUsername" class="form-control" placeholder="Username" name="username">
-	        <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password">
-	        <br>
-	        <input type="submit" value="Entrar" class="btn btn-primary">
+	<form method="POST" accept-charset="utf-8">
+		{% crispy form %}
+		
 	</form>
 	</div>
 	</div>

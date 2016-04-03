@@ -23,12 +23,12 @@ urlpatterns = [
     ),
     url(
         regex = r'^login/', 
-        view = auth.login,
+        view = auth.LoginView.as_view(),
         name = 'login'
     ),
     url(
         regex = r'^logout/', 
-        view = auth.logout,
+        view = auth.LogoutView.as_view(),
         name = 'logout'
     ),
     url(
