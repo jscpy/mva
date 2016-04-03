@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="jumbotron">
-  <h1>Hello, world!</h1>
+  <h1>{{saludo}}, {{mensaje}}!</h1>
   {% if user.is_authenticated %}
   <p><a class="btn btn-primary btn-lg" href="{% url 'session_list' %}" role="button">See more</a></p>
   {% else %}
