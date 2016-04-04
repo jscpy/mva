@@ -1,11 +1,10 @@
 from django.contrib import auth
-from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.shortcuts import render, redirect, render_to_response
 from django.views.generic import FormView, TemplateView, RedirectView, View
-from django.contrib.auth.mixins import LoginRequiredMixin
 
-from mva.forms import UserForm, UserLoginForm
+from mva.forms import UserCreateForm, UserLoginForm
 
-class LogoutView(LoginRequiredMixin, RedirectView):
+class LogoutView(auth.mixins.LoginRequiredMixin, RedirectView):
 	pattern_name = 'login'
 
 	def get(self, request, *args, **kwargs):
@@ -47,15 +46,22 @@ class LoginView(View):
 
 class RegisterForm(FormView):
 	template_name = 'user_form.html'
-	form_class = UserForm
-	success_url = '/success/submit/'
+	form_class = UserCreateForm
+	success_url = '/sessions/'
+	#succes_url = '/success/submit/'
 
 	def form_valid(self, form):
 		auth.models.User.objects.create_user(username = form.cleaned_data['username'],
 		password = form.cleaned_data['password1']).save()
-		print(self.request.POST['username'], self.request.POST['password1'])
+
+		user = auth.authenticate(username = self.request.POST['username'],
+		password = self.request.POST['password1'])
+
+		auth.login(self.request, user)
 
 		return super(RegisterForm, self).form_valid(form)
 
+# Si se desea redirigir a un mensaje de registro exitoso 
+# se debe cambiar el success_url de RegisterForm
 class UserSubmit(TemplateView):
 	template_name = "success_submit.html"

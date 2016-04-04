@@ -11,15 +11,14 @@
 		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 		  	<span aria-hidden="true">&times;</span>
 		  </button>
-		  	<strong>Warning!</strong> {{mensaje}}.
+		  	<strong>Error!</strong> {{mensaje}}.
 		</div>
 	{% endif %}
 	<div class="row">
 	<div class="col-md-offset-4 col-md-4">
-	<form method="POST" accept-charset="utf-8">
-		{% crispy form %}
-		
-	</form>
+		<form method="POST" accept-charset="utf-8">
+			{% crispy form %}
+		</form>
 	</div>
 	</div>
 {% endif %}
