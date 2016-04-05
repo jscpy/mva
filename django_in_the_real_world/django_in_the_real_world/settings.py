@@ -125,7 +125,3 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_URL = '/login/'
-
-ABSOLUTE_URL_OVERRIDES = {
-    'auth.user': lambda u: '/sessions/',
-}

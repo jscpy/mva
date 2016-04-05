@@ -1,8 +1,8 @@
 from django.conf.urls import url
 from django.contrib import admin
 
-from mva.views import (Index,SessionCreateView, SessionListView, SessionDetailView, 
-SessionDeleteView, SessionUpdateView)
+from mva.views import (Index, SessionCreateView, SessionListView, SessionDetailView, 
+SessionDeleteView, SessionUpdateView )
 from mva import views
 from mva import auth
 
@@ -13,17 +13,22 @@ urlpatterns = [
     ),
     url(
         regex = r'^register/', 
-        view = auth.UserCreateView.as_view(),
+        view = auth.RegisterForm.as_view(),
         name = 'register'
     ),
     url(
+        regex = r'^success/submit/', 
+        view = auth.UserSubmit.as_view(),
+        name = 'success'
+    ),
+    url(
         regex = r'^login/', 
-        view = auth.userlogin,
+        view = auth.LoginView.as_view(),
         name = 'login'
     ),
     url(
         regex = r'^logout/', 
-        view = auth.userlogout,
+        view = auth.LogoutView.as_view(),
         name = 'logout'
     ),
     url(

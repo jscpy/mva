@@ -7,7 +7,14 @@ from mva.models import Session
 from mva.forms import SessionForm
 
 class Index(TemplateView):
-    template_name = "index.html"
+	template_name = "index.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(Index, self).get_context_data(**kwargs)
+		context['saludo'] = 'Hola'
+		context['mensaje'] = 'Mundo'
+
+		return context
 
 class SessionListView(LoginRequiredMixin, ListView):
 	model = Session
@@ -31,17 +38,3 @@ class SessionUpdateView(LoginRequiredMixin, UpdateView, ):
 class SessionDeleteView(LoginRequiredMixin, DeleteView, ):
 	model = Session
 	success_url = reverse_lazy('session_list')
-
-
-
-# class ControlPanelView(LoginRequiredMixin, TemplateView):
-# 	template_name = 'control_panel/panel.html'
-
-# 	def get_context_data(self, **kwargs):
-# 		context = super(ControlPanelView, self).get_context_data(**kwargs)
-# 		context['pedidos_pendientes'] = Pedido.objects.pendientes()
-# 		# ....
-# 		# Recopilar resto de la informacion
-# 		# ....
-
-# 		return context

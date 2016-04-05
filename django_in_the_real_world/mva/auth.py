@@ -1,43 +1,67 @@
-from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
-from django.views.generic import CreateView
+from django.contrib import auth
+from django.shortcuts import render, redirect, render_to_response
+from django.views.generic import FormView, TemplateView, RedirectView, View
 
-from mva.forms import UserForm
+from mva.forms import UserCreateForm, UserLoginForm
 
+class LogoutView(auth.mixins.LoginRequiredMixin, RedirectView):
+	pattern_name = 'login'
 
-class UserCreateView(CreateView):
-    model = User
-    template_name = "user_form.html"
-    form_class = UserForm
-    succes_url = ('session_list')
+	def get(self, request, *args, **kwargs):
+		auth.logout(request)
+		return super(LogoutView, self).get(request, *args, **kwargs)
 
-def userlogout(request):
-	logout(request)
-	return redirect('/')
+class LoginView(View):
+	template_name = 'login.html'
+	form_class = UserLoginForm
 
-def userlogin(request):
-	if request.method == 'GET':
-		return render(request, 'login.html')
-	
-	elif request.method == 'POST':
+	def get(self, request, *args, **kwargs):
+		form = self.form_class()
+		return render(request, self.template_name, {'form':form})
+
+	def post(self, request, *args, **kwargs):
+		form = self.form_class()
+
 		username = request.POST['username']
 		password = request.POST['password']
 
-		user = authenticate(username = username, password = password)
+		user = auth.authenticate(username = username, password = password)
 
 		if user is not None:
 			if user.is_active:
-				login(request, user)
+				auth.login(request, user)
 				next = ''
 				if 'next' in request.GET:
 					next = request.GET['next']
 				if next == None or next == '':
-					next = '/sessions'
+					next = '/sessions/'
 
 				return redirect(next)
 
 			else:
-				return render(request, 'login.html', {"mensaje" : "Tu cuenta esta deshabilitada"})
+				return render(request, 'login.html', {"mensaje" : "Tu cuenta esta deshabilitada","form":form})
 		else:	
-			return render(request, 'login.html',{"mensaje" : "Usuario incorrecto"})
+			return render(request, 'login.html', {"mensaje" : "Usuario incorrecto","form":form})
+
+
+class RegisterForm(FormView):
+	template_name = 'user_form.html'
+	form_class = UserCreateForm
+	success_url = '/sessions/'
+	#succes_url = '/success/submit/'
+
+	def form_valid(self, form):
+		auth.models.User.objects.create_user(username = form.cleaned_data['username'],
+		password = form.cleaned_data['password1']).save()
+
+		user = auth.authenticate(username = self.request.POST['username'],
+		password = self.request.POST['password1'])
+
+		auth.login(self.request, user)
+
+		return super(RegisterForm, self).form_valid(form)
+
+# Si se desea redirigir a un mensaje de registro exitoso 
+# se debe cambiar el success_url de RegisterForm
+class UserSubmit(TemplateView):
+	template_name = "success_submit.html"
