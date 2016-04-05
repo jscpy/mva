@@ -1,10 +1,11 @@
-from django.contrib import auth
-from django.shortcuts import render, redirect, render_to_response
 from django.views.generic import FormView, TemplateView, RedirectView, View
+from django.shortcuts import render, redirect, render_to_response
+from django.contrib import auth
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from mva.forms import UserCreateForm, UserLoginForm
 
-class LogoutView(auth.mixins.LoginRequiredMixin, RedirectView):
+class LogoutView(LoginRequiredMixin, RedirectView):
 	pattern_name = 'login'
 
 	def get(self, request, *args, **kwargs):
