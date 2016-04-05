@@ -2,7 +2,7 @@ from django import forms
 from django.contrib import auth
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Field
+from crispy_forms.layout import Submit
 
 from mva.models import Session
 
