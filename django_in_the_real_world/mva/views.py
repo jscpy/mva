@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, DetailView, CreateView, UpdateView, ListView
+from django.views.generic import (TemplateView, DetailView, CreateView, 
+UpdateView, ListView, DeleteView)
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import auth
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from mva.models import Session
 from mva.forms import SessionForm
@@ -16,25 +18,25 @@ class Index(TemplateView):
 
 		return context
 
-class SessionListView(auth.mixins.LoginRequiredMixin, ListView):
+class SessionListView(LoginRequiredMixin, ListView):
 	model = Session
 	template_name = "session_list.html"
 	context_object_name = 'sesiones'
 
-class SessionDetailView(auth.mixins.LoginRequiredMixin, DetailView):
+class SessionDetailView(LoginRequiredMixin, DetailView):
 	model = Session
 	template_name = "session_detail.html"
 
-class SessionCreateView(auth.mixins.LoginRequiredMixin, CreateView, ):
+class SessionCreateView(LoginRequiredMixin, CreateView, ):
 	model = Session
 	template_name = "session_form.html"
 	form_class = SessionForm
 
-class SessionUpdateView(auth.mixins.LoginRequiredMixin, UpdateView, ):
+class SessionUpdateView(LoginRequiredMixin, UpdateView, ):
 	model = Session
 	template_name = "session_form.html"
 	form_class = SessionForm
 
-class SessionDeleteView(auth.mixins.LoginRequiredMixin, DeleteView, ):
+class SessionDeleteView(LoginRequiredMixin, DeleteView, ):
 	model = Session
 	success_url = reverse_lazy('session_list')
