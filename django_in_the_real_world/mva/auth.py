@@ -29,6 +29,7 @@ class LoginView(View):
 		user = auth.authenticate(username = username, password = password)
 
 		if user is not None:
+
 			if user.is_active:
 				auth.login(request, user)
 				next = ''
@@ -41,9 +42,8 @@ class LoginView(View):
 
 			else:
 				return render(request, 'login.html', {"mensaje" : "Tu cuenta esta deshabilitada","form":form})
-		else:	
+		else:
 			return render(request, 'login.html', {"mensaje" : "Usuario incorrecto","form":form})
-
 
 class RegisterForm(FormView):
 	template_name = 'user_form.html'
@@ -52,8 +52,10 @@ class RegisterForm(FormView):
 	#succes_url = '/success/submit/'
 
 	def form_valid(self, form):
-		auth.models.User.objects.create_user(username = form.cleaned_data['username'],
-		password = form.cleaned_data['password1']).save()
+		username = form.cleaned_data['username']
+		password = form.cleaned_data['password1']
+
+		auth.models.User.objects.create_user(username = ,password = password1) .save()
 
 		user = auth.authenticate(username = self.request.POST['username'],
 		password = self.request.POST['password1'])
@@ -62,7 +64,7 @@ class RegisterForm(FormView):
 
 		return super(RegisterForm, self).form_valid(form)
 
-# Si se desea redirigir a un mensaje de registro exitoso 
+# Si se desea redirigir a un mensaje de registro exitoso
 # se debe cambiar el success_url de RegisterForm
 class UserSubmit(TemplateView):
 	template_name = "success_submit.html"
