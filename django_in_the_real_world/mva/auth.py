@@ -55,10 +55,9 @@ class RegisterForm(FormView):
 		username = form.cleaned_data['username']
 		password = form.cleaned_data['password1']
 
-		auth.models.User.objects.create_user(username = ,password = password1) .save()
+		auth.models.User.objects.create_user(username = username, password = password).save()
 
-		user = auth.authenticate(username = self.request.POST['username'],
-		password = self.request.POST['password1'])
+		user = auth.authenticate(username = username, password = password)
 
 		auth.login(self.request, user)
 
