@@ -96,3 +96,10 @@ class CreateUser(FormView):
                                         form.cleaned_data['password1'])
         #user.save()
         return super(CreateUser, self).form_valid(form)
+
+
+
+#Git ignore
+git rm -r -f "carpeta a eliminar"
+echo '*.pyc' > log/.gitignore
+git add log
