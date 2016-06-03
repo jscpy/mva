@@ -1,5 +1,9 @@
 *.pyc
+<<<<<<< HEAD
 django_in_the_real_world/django_in_the_real_world/__pycache__/
 django_in_the_real_world/mva/__pycache__
 /mva/__pycache__/
 
+=======
+db.sqlite3
+>>>>>>> 5f9343563f60be639257983998b37a341342b4fd

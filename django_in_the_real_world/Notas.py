@@ -96,3 +96,15 @@ class CreateUser(FormView):
                                         form.cleaned_data['password1'])
         #user.save()
         return super(CreateUser, self).form_valid(form)
+
+
+
+#Git ignore
+git rm -r -f "carpeta a eliminar"
+echo '*.pyc' > log/.gitignore
+git add log
+
+git rm -f db/*.sqlite3
+$ echo '*.sqlite3' >> .gitignore
+$ git add .gitignore
+$ git commit -m "ignored sqlite databases"

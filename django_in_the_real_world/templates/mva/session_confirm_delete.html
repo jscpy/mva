@@ -3,8 +3,8 @@
 <div class="starter-template">
 <form action="" method="post">
 {% csrf_token %}
-    <p>Are you sure you want to delete "{{ object }}"?</p>
-    <input type="submit" value="Confirm" />
+    <p class="lead">Estas seguro de borrar "{{ object }}"?</p>
+    <input class="btn btn-primary" type="submit" value="Confirmar" />
 </form>
 </div>
 {% endblock %}
