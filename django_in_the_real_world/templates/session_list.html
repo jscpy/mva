@@ -1,20 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Sessiones del día</h1>  
-{% for sesion in sesiones  %}
+
+{% if messages %}
+	{% include 'alerts.html' %}
+{% endif %}
+
 <div class="row">
-	<div class="col-md-4">
-		<a href="{% url 'session_detail' sesion.pk %}">
-			<p class="lead">{{sesion.title}}</p>
-        </a>
+	<div class="col-lg-12">
+		<h1 class="page-header">Conferencias del Día</h1>
 	</div>
-	<div class="col-md-4">
-		<a href="{% url 'session_update' sesion.pk %}"> Update </a>
-	</div>
-	<div class="col-md-4">
-        <a href="{% url 'session_delete' sesion.pk %}"> Delete</a>
-    </div>
 </div>
-{% endfor %}	
-	
+
+{% for sesion in sesiones  %}
+{% if sesion.places_off == 200 %}
+<div class="panel panel-danger">
+{% else %}
+<div class="panel panel-success">
+{% endif %}
+  <div class="panel-heading">
+    <h3 class="panel-title">
+    <i class="fa fa-desktop"></i>
+    <a href="{% url 'session_detail' sesion.pk %}">  {{sesion.title}} </a>
+    <a href="{% url 'session_update' sesion.pk %}"><i class="fa fa-pencil"></i></a
+    </h3>
+  </div>
+  <div class="panel-body">
+   <p class="lead">{{sesion.abstract}}</p>
+  </div>
+  <div class="panel-footer">
+  <a href="{% url 'speaker_detail' sesion.speaker.id %}"><i class="fa fa-user"></i>  {{sesion.speaker}}</a>
+  </div>
+</div>
+{% endfor%}
+
 {% endblock %}

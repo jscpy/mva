@@ -1,9 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
-  <div class="starter-template">
-        <h1>Detalles de la sesión</h1>
-        	<p class="lead">{{session.title}}</p>
-        	<p class="lead">{{session.speaker}}</p>
-        	<p class="lead">{{session.abstract}}</p>
-      </div>
+
+{% if messages %}
+	{% include 'alerts.html' %}
+{% endif %}
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">Detalles de la sesión</h1>
+	</div>
+</div>
+<h3 class="text-warning">{{session.title}}</h3>
+<p class="lead text-info"><strong>{{session.speaker}}</strong></p>
+<p class="lead"><strong>{{session.abstract}}</strong></p>
+<p class="lead"><strong>{{session.salon}}</strong></p>
+<p class="lead"><strong>Capacidad para {{session.places}} personas</strong></p>
+<p class="lead"><strong>{{session.date}}</strong></p>
+<p class="lead">{{session.status_places }}</p>
+{% if session.places_off < 200 %}
+<a href="{% url 'reservation_create' %}" class="btn btn-primary">Reserva Aquí</a>
+{% endif %}
+
 {% endblock %}

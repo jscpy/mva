@@ -1,12 +1,26 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+
 {% block content %}
 <div class="jumbotron">
-  <h1>{{saludo}}, {{mensaje}}!</h1>
-  {% if user.is_authenticated %}
-  <p><a class="btn btn-primary btn-lg" href="{% url 'session_list' %}" role="button">See more</a></p>
-  {% else %}
-  	<p>Para conocer las conferencias porfavor inicie sesión</p>
-  {% endif %}
+	<div class="container">
+		<h1>PyCon México 2017</h1>		
+	</div>
+</div>
+
+<div class="row">		
+	<div class="col-md-4">
+		<h2><i class="fa fa-microphone"></i> Conferencias</h2>
+		<p class="lead">Registrate y aparta tu lugar para las conferencias impartidas por nuestros PyConeros expertos.</p>
+	</div>
+	<div class="col-md-4">
+		<h2><i class="fa fa-desktop"></i> Talleres</h2>
+		<p class="lead">Registrate para los talleres en donde aprenderas a manejar distintas herramientas en el desarrollo Web, Movil y Desktop.</p>				
+	</div>
+	<div class="col-md-4">
+		<h2><i class="fa fa-coffee"></i> Coffe Break</h2>
+		<p class="lead">Tomate un descanso y pasate por un cafe al bar, va por nuestra cuenta.
+		</p>
+	</div>
 </div>
 {% endblock %}

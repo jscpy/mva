@@ -1,12 +1,12 @@
 from django.contrib import admin
-from mva.models import *
+from .models import *
 
 # Register your models here.
 class SpeakerAdmin(admin.ModelAdmin):
 	list_display = ('name','bio')
 	fieldsets = (
 		('General Information', { 
-			'fields' : ('name','bio')
+			'fields' : ('name','bio','title')
 		}),
 		('Social media', {
 			'classes' : ('collapse',), #Añadir coma al final 
@@ -32,7 +32,10 @@ class SessionAdmin(admin.ModelAdmin):
 
 	make_approved.short_description = 'Mark session(s) as approved'
 
+class ReservationAdmin(admin.ModelAdmin):
+	list_display = ('session','person')
 
 admin.site.register(Track)
+admin.site.register(Reservation, ReservationAdmin)
 admin.site.register(Speaker, SpeakerAdmin)
 admin.site.register(Session, SessionAdmin)

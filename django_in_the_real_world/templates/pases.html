@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+	<title>PDF de Prueba</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="{% static 'mva/css/estilo.css' %}">
+</head>
+<body>
+<div>
+<div>
+	<h1 class="page-header">PyCon México 2017</h1>
+	<img src="{% static 'mva/images/logo.gif'%}" alt="">
+</div>
+  <p>Nombre: {{usuario.first_name}} {{usuario.last_name}}</p>
+  <p>Usuario: {{usuario.username}}</p>
+  <hr>
+	<h3 class="page-header">Tus Conferencias</h3>
+	</div>
+	{% for reservacion in reservaciones %}
+	<div class="panel panel-success">
+  		<div class="panel-heading">
+    		<h3 class="panel-title"> {{reservacion.session}}</h3>
+  		</div>
+  		<div class="panel-body">
+  			<p>Salon: {{reservacion.session.salon}}</p>
+   			<p>{{reservacion.session.abstract}}</p>
+  		</div>
+  		<div class="panel-footer">
+  		<p>Conferencia por: {{reservacion.session.speaker}}</p>
+  		</div>
+	</div>
+	{% endfor %}
+</body>
+</html>

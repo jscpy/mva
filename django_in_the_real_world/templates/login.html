@@ -3,16 +3,8 @@
 
 {% block content %}
 <br><br>
-{% if user.is_authenticated %}
-	<h1>Ya te has logueado</h1>
-{% else %}
-	{% if mensaje %}
-		<div class="alert alert-danger" role="alert" role="alert">
-		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		  	<span aria-hidden="true">&times;</span>
-		  </button>
-		  	<strong>Error!</strong> {{mensaje}}.
-		</div>
+	{% if messages %}
+		{% include 'alerts.html' %}
 	{% endif %}
 	<div class="row">
 	<div class="col-md-offset-4 col-md-4">
@@ -21,5 +13,4 @@
 		</form>
 	</div>
 	</div>
-{% endif %}
 {% endblock %}
